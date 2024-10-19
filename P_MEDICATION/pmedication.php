@@ -34,6 +34,7 @@
             <!-- Medicine Section -->
             <div id="medicineContainer">
                 <div class="medicine-entry">
+                    <div class="inline-row8">
                     <label for="medicines">Medicine:</label>
                     <select class="medicine-dropdown" name="medicines[]" required onchange="updateAmountPlaceholder(this)">
                         <!-- Options will be populated dynamically -->
@@ -44,6 +45,7 @@
                     <input type="hidden" name="originalAmount[]" class="original-amount">
                     <!-- Delete button -->
                     <button type="hidden" class="delete-medicine-button" disabled onclick="deleteMedicineField(this)">Delete</button>
+                    </div>
                 </div>
             </div>
 

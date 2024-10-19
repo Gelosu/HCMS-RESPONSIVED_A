@@ -7,7 +7,7 @@ $response = []; // Initialize response array
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Retrieve and sanitize form data
-    $patientName = isset($_POST['patientName']) ? htmlspecialchars($_POST['patientName']) : '';
+    $patientName = isset($_POST['patientName2']) ? htmlspecialchars($_POST['patientName2']) : '';
     $purpose = isset($_POST['purpose']) ? htmlspecialchars($_POST['purpose']) : '';
     $appointmentDateTime = isset($_POST['appointmentDateTime']) ? htmlspecialchars($_POST['appointmentDateTime']) : '';
     $healthWorker = isset($_POST['healthWorker']) ? htmlspecialchars($_POST['healthWorker']) : '';

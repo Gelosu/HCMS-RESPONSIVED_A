@@ -19,8 +19,8 @@
         <span class="close" onclick="closeAddAppointmentModal()">&times;</span>
         <h3>Add Appointment</h3>
         <form id="addAppointmentForm" onsubmit="submitAddAppointmentForm(event)">
-            <label for="patientName">Name of Registered Patient:</label>
-            <select id="patientName" name="patientName" required>
+            <label for="patientName2">Name of Registered Patient:</label>
+            <select id="patientName2" name="patientName2" required>
                 <!-- Options will be populated dynamically -->
             </select>
             
@@ -144,43 +144,53 @@
 <script>
     //APPOINTMENT 
 
-// Function to open the Add Appointment modal
-function openAddAppointmentModal() {
-    // Fetch patient names and populate dropdown
+    function openAddAppointmentModal() {
+    // Make the modal visible first
+    document.getElementById('addAppointmentModal').style.display = 'block';
+
+    // Fetch patient data
     fetch('APPOINTMENT/fetch_patient.php')
         .then(response => response.json())
         .then(result => {
             if (result.success) {
-                console.log("check result: ", result.data);
-                populatePatientDropdown2(result.data);
-                // Set the health worker's name
-                document.getElementById('healthWorker').value = healthWorkerName;
-                document.getElementById('addAppointmentModal').style.display = 'block';
+                console.log("check result: ", result.data); // Log the fetched data
+                populatePatientDropdown2(result.data); // Populate dropdown with data
+                document.getElementById('healthWorker').value = healthWorkerName; // Set the health worker name
             } else {
                 alert('Error fetching patients: ' + result.error);
             }
         })
-        .catch(error => console.error('Error:', error));
+        .catch(error => {
+            console.error('Error:', error);
+        });
 }
 
-// Function to populate the patient dropdown
+
+/// Function to populate the patient dropdown
 function populatePatientDropdown2(patients) {
-    var dropdown = document.getElementById('patientName');
+    var dropdown = document.getElementById('patientName2');
     dropdown.innerHTML = ''; // Clear existing options
 
+    // Create and append a default option
     var defaultOption = document.createElement('option');
     defaultOption.text = 'Select a patient';
-    defaultOption.value = '';
-    dropdown.add(defaultOption);
+    defaultOption.value = ''; // Value for no selection
+    dropdown.appendChild(defaultOption);
 
-    // Iterate over the list of patient names
-    patients.forEach(patient => {
-        var option = document.createElement('option');
-        option.text = patient; // Use the patient name directly
-        option.value = patient; // Use the patient name directly as the value
-        dropdown.add(option);
-    });
+    // Check if patients is an array and iterate over it
+    if (Array.isArray(patients)) {
+        patients.forEach(patient => {
+            var option = document.createElement('option');
+            option.text = patient; // Assuming patient is a string
+            option.value = patient; // Assuming patient is a string
+            dropdown.appendChild(option);
+        });
+    } else {
+        console.error('Expected patients to be an array.');
+    }
 }
+
+
 
 // Function to close the Add Appointment modal
 function closeAddAppointmentModal() {
